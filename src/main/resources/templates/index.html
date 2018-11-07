@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>假期去向统计系统</title>
+    <link rel="stylesheet" href="./layui/css/layui.css">
+    <script src="https://cdn.staticfile.org/jquery/3.3.1/jquery.min.js"></script>
+</head>
+
+<body>
+    <div class="layui-container">
+        <div class="layui-row">
+            <blockquote class="layui-elem-quote layui-text">
+                鉴于小伙伴的普遍反馈，先温馨提醒两个常见“问题”：1. 显示？2.更新？
+            </blockquote>
+            <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+                <legend>假期去向统计系统</legend>
+            </fieldset>
+            <form class="layui-form layui-form-pane" method="post" action="/accept">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">姓名：</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="name" autocomplete="off" placeholder="请输入姓名" lay-verify="required" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">系别：</label>
+                    <div class="layui-input-block">
+                        <select name="xi">
+                            <option value="计算机" selected>计算机与软件系</option>
+                            <option value="电子">电子技术系</option>
+                            <option value="机电">机电技术系</option>
+                            <option value="经济">经济管理系</option>
+                            <option value="数艺">数字艺术系</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">班级：</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="class_" autocomplete="off" placeholder="软件S17-1" lay-verify="required" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">宿舍信息：</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="bed_no" autocomplete="off" placeholder="例：8-301-6" lay-verify="required" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">选择假期</label>
+                    <div class="layui-input-block">
+                        <select name="holiday_name" lay-filter="get_holiday_name">
+                            <option value="元旦">元旦</option>
+                            <option value="清明">清明节</option>
+                            <option value="劳动">劳动节</option>
+                            <option value="端午">端午节</option>
+                            <option value="中秋" selected>中秋节</option>
+                            <option value="国庆">国庆节</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="layui-form-item" pane>
+                    <label class="layui-form-label">假期前一天</label>
+                    <div class="layui-input-block">
+                        <input type="checkbox" name="day_0" lay-skin="switch" value="1" lay-filter="switchTest" lay-text="在校|不在校" checked>
+                    </div>
+                </div>
+                <div class="layui-form-item" pane>
+                    <label class="layui-form-label">假期第一天</label>
+                    <div class="layui-input-block">
+                        <input type="checkbox" name="day_1" lay-skin="switch" value="1" lay-filter="switchTest" lay-text="在校|不在校" checked>
+                    </div>
+                </div>
+                <div class="layui-form-item" pane>
+                    <label class="layui-form-label">假期第二天</label>
+                    <div class="layui-input-block">
+                        <input type="checkbox" name="day_2" lay-skin="switch" value="1" lay-filter="switchTest" lay-text="在校|不在校" checked>
+                    </div>
+                </div>
+                <div class="layui-form-item" pane>
+                    <label class="layui-form-label">假期第三天</label>
+                    <div class="layui-input-block">
+                        <input type="checkbox" name="day_3" lay-skin="switch" value="1" lay-filter="switchTest" lay-text="在校|不在校" checked>
+                    </div>
+                </div>
+                <div id="add_switch">
+                    <div class="layui-form-item" pane>
+                        <label class="layui-form-label">假期第四天</label>
+                        <div class="layui-input-block">
+                            <input type="checkbox" name="day_4" lay-skin="switch" value="1" lay-filter="switchTest" lay-text="在校|不在校" checked>
+                        </div>
+                    </div>
+                    <div class="layui-form-item" pane>
+                        <label class="layui-form-label">假期第五天</label>
+                        <div class="layui-input-block">
+                            <input type="checkbox" name="day_5" lay-skin="switch" value="1" lay-filter="switchTest" lay-text="在校|不在校" checked>
+                        </div>
+                    </div>
+                    <div class="layui-form-item" pane>
+                        <label class="layui-form-label">假期第六天</label>
+                        <div class="layui-input-block">
+                            <input type="checkbox" name="day_6" lay-skin="switch" value="1" lay-filter="switchTest" lay-text="在校|不在校" checked>
+                        </div>
+                    </div>
+                    <div class="layui-form-item" pane>
+                        <label class="layui-form-label">假期第七天</label>
+                        <div class="layui-input-block">
+                            <input type="checkbox" name="day_7" lay-skin="switch" value="1" lay-filter="switchTest" lay-text="在校|不在校" checked>
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">手机号：</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="phone" id="phone" autocomplete="off" placeholder="请输入手机号" lay-verify="phone" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <div class="layui-inline">
+                        <label class="layui-form-label">验证码：</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="ver" autocomplete="off" placeholder="请输入验证码" lay-verify="required" id="randNum" value='' class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-inline">
+                        <button type="button" id="btn" class="layui-btn layui-btn-primary" style="width: 100%" onclick="getCode();">获取验证码</button>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">去向：</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="where_to_go" autocomplete="off" placeholder="请输入去向" lay-verify="required" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item layui-form-text">
+                    <label class="layui-form-label">备注</label>
+                    <div class="layui-input-block">
+                        <textarea name="remarks" placeholder="非必填" class="layui-textarea"></textarea>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <button class="layui-btn" style="width: 100%" lay-submit="" lay-filter="demo2">跳转式提交</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script src="./layui/layui.js"></script>
+    <script>
+    var verifyNum;
+
+    function getCode() {
+        var phone = $('#phone').val();
+        var myreg = /^(((13[0-9]{1})|(15[0-9]{1})|(17[0-9]{1})|(18[0-9]{1}))+\d{8})$/;
+        if (!myreg.test(phone)) {
+            layer.alert('请输入有效的手机号码!');
+        } else {
+            var countdown = 60;
+            settime($('#btn'));
+
+            function settime(obj) {
+                if (countdown == 0) {
+                    $(obj).attr("disabled", false);
+                    $(obj).text("获取验证码");
+                    countdown = 60;
+                    $('#btn').removeClass("layui-btn-disabled");
+                    return;
+                } else {
+                    $(obj).attr("disabled", true);
+                    $(obj).text("(" + countdown + ") s 重新发送");
+                    countdown--;
+                    $('#btn').addClass("layui-btn layui-btn-disabled");
+                }
+                setTimeout(function() {
+                    settime(obj)
+                }, 1000)
+            }
+
+            $.ajax({
+                url: "/sms", //发送请求的地址，String类型的参数
+                data: { phone: phone }, //发送到服务器的数据，Object或String类型的参数，如果已经不是字符串，将自动转换为字符串格式。
+                type: "POST", //请求方式，默认为GET，String类型的参数
+                success: function(data) { //响应成功后回调的函数，data是来自服务器的数据 
+                    layer.msg('发送成功！');
+                    verifyNum = data.toString(); //这里将json转为字符串显示(data其实是个object,不转换的话会显示为一片空白)
+                },
+                error: function() {
+                    //出错时回调该函数 
+                    layer.alert("验证码发送失败!");
+                }
+            });
+        }
+    }
+
+
+    $("#add_switch").css("display", "none");
+
+    layui.use('form', function() {
+        var form = layui.form;
+
+        form.on('select(get_holiday_name)', function(data) {
+            if (data.value == '国庆') {
+                $("#add_switch").css("display", "inline");
+            } else {
+                $("#add_switch").css("display", "none");
+            }
+        });
+
+        form.on('submit(demo2)', function(data) {
+            if ($('#randNum').val() != verifyNum) {
+                layer.msg('验证码错误！', {
+                    icon: 5,
+                    anim: 6
+                });
+                return false;
+            }
+        });
+    });
+    </script>
+</body>
+
+</html>
